@@ -1,0 +1,60 @@
+What your site does and what its purpose:
+- I made a basic twitter, called yeller, because every tweet is auto-caps.
+- Ironically, the live updates make it double as a chat client in the global feed.
+
+
+How you used MVC and which framework you used:
+- My models describe the database contents (accounts and yells).
+- My controllers provide access to the models and return processed data, as well as the single handlebars page.
+- My views are React components on a single page site. All rooted in a single <div id="page"></div>.
+- Express was used.
+
+
+What you used Mongo for (what did you store/retrieve):
+- Account Model:
+  - username (string)
+  - follows (array of objectIDs of Account)
+  - salt, password, createdDate
+- Account Controller:
+  - login
+  - logout
+  - signup
+  - follow N users (if logged in)
+  - unfollow N users (if logged in)
+  - getStatus of a session for resuming the single page site
+  - getRelation of N users against the same N users (currently just if users are following each other)
+  - applySettings of varying types, completeness not required, multiple settings supported at once (if logged in)
+  - getFollows of N users, providing the follow list of each user as an array of names
+
+- Yell Model:
+  - message (string)
+  - owner (objectID of Account)
+  - createdDate
+- Yell Controller:
+  - getYells of a single user, or the 10 most recent yells, or all the yells of people the currently logged in person follows
+  - makeYell makes a yell
+
+
+How you used a templating language and which templating language you used:
+- I called .render(...) on a single .handlebars file. Yep. See notes please, I made a single page site.
+
+
+How did you go above and beyond?:
+1) single page website
+2) extensive error checking with feedback
+3) database populating for id referencing
+4) database array accesses for in, out, and update operations
+5) user profiles via /:username route
+6) extensive React usage
+7) spent at least 20 hours debugging extensive mongoose bugs, like actual bugs in mongoose
+8) probably broke a record with pestering Cody
+
+
+Notes for grader:
+1) Cody gave me permission to count the password change popup as an additional view, since it contains a second item and is a popup.
+2) Cody gave me permission to not use handlebars templating. I call res.render('/app') only.
+
+
+credits:
+favicon/logo: http://mrpajamasharkman.deviantart.com/art/Exclaiming-Exclamation-Point-83915018
+fancy CSS switch: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch

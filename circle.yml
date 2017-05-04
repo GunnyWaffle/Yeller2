@@ -1,0 +1,8 @@
+machine:
+  node:
+    version: 7.4.0
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: daf8972-yeller2

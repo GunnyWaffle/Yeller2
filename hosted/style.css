@@ -1,0 +1,274 @@
+* {
+    margin: 0;
+}
+
+html {
+    background: whitesmoke;
+}
+
+nav {
+    position: fixed;
+    height: 110px;
+    width: 100%;
+    background: #FF9900;
+    z-index: 2;
+}
+
+.popupContainer {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    background: rgba(0,0,0,0.7); 
+    cursor: pointer;
+    z-index: 10;
+}
+
+.popupContainer >:first-child {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: whitesmoke;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    z-index: 10;
+    cursor: auto;
+}
+
+#logo {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+#errorMessage {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+    background: white;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+#errorMessage p {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    animation: errorBlinker 500ms alternate infinite;
+}
+
+@keyframes errorBlinker {
+    from {color: black;}
+    to {color: red;}
+}
+
+#account {
+    position: fixed;
+    top: 11px;
+    right: 15px;
+    padding-left: 0px;
+    background: whitesmoke;
+    list-style: none;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+#account li {
+    cursor: pointer;
+    background: white;
+    margin: 5px;
+    padding: 5px;
+    padding-top: 0px;
+    padding-bottom: 2px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#account li:hover {
+    background: lightgray;
+}
+
+#accountLogger {
+    position: fixed;
+    top: 5px;
+    right: 10px;
+    z-index: 2;
+}
+
+#accountForm * {
+    display: block;
+    margin-bottom: 2px;
+}
+
+#accountForm .formSubmit {
+    float: left;
+}
+
+#accountToggle {
+    float: right;
+}
+
+#followList {
+    max-height: 200px;
+    background: white;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.follow * {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.follow:not(:last-child) {
+    border-bottom: 2px solid lightgray;
+}
+
+#yellForm {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 8px;
+    z-index: 2;
+}
+
+#yellForm * {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+#yellTextArea {
+    width: 300px;
+    height: 70px;
+    overflow: hidden;
+    resize: none;
+}
+
+#userInfo {
+    position: fixed;
+    top: 75px;
+    left: 125px;
+    z-index: 2;
+}
+
+#userInfo * {
+    display: inline;
+    margin-right: 5px;
+}
+
+#content {
+    padding-top: 115px;
+}
+
+#feedSwitch {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 36px;
+    margin-bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#feedSwitch input {
+    display: none;
+}
+
+#feedSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: right;
+    padding: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#feedSlider:before {
+    position: absolute;
+    content: "";
+    height: 28px;
+    width: 28px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+#feedSwitch input:focus + #feedSlider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+#feedSwitch input:checked + #feedSlider:before {
+    transform: translateX(84px);
+}
+
+#feedSwitch input:checked + #feedSlider {
+    text-align: left;
+}
+
+#yells {
+    width: 400px;
+    margin: auto;
+    background: white;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+}
+
+.yell:not(:last-child) {
+    border-bottom: 2px solid lightgray;
+}
+
+.yellName {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 3px;
+    padding-top: 0px;
+    cursor: pointer;
+    background: lightgray;
+    border-radius: 0px 0px 5px 5px;
+    font-weight: bold;
+}
+
+.yellName:hover {
+    color: #0099FF;
+}
+
+.yellMessage {
+    margin-left: 27px;
+    margin-right: 20px;
+    word-wrap: break-word;
+}
+
+.yellDate {
+    text-align: right;
+    margin-right: 5px;
+    font-size: 8pt;
+}
