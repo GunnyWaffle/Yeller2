@@ -8,9 +8,10 @@
   "description": "Yell your thoughts",
   "main": "./server/app.js",
   "scripts": {
-    "buildAppBundle": "babel ./client/app ./client/helper --presets react --out-file ./hosted/bundle.js",
-    "build": "npm run buildLoginBundle && npm run buildAppBundle",
-    "watchAppBundle": "babel --watch ./client/app ./client/helper --presets react --out-file ./hosted/bundle.js",
+    "buildApp": "babel ./client --presets react --out-file ./hosted/bundle.js",
+    "watchApp": "babel --watch ./client --presets react --out-file ./hosted/bundle.js",
+    "buildCSS": "node-sass --include-path scss scss/main.scss hosted/style.css",
+    "watchCSS": "nodemon -e scss -x \"npm run buildCSS\"",
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
@@ -45,6 +46,7 @@
     "eslint": "^3.0.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.10.1",
+    "node-sass": "^4.5.2",
     "nodemon": "^1.11.0"
   },
   "repository": {

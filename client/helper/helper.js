@@ -18,7 +18,7 @@ const sendAjax = (type, action, data, success) => {
 const PopupClass = React.createClass({
   render: function() { // render out the children
     return(
-      <div ref="self" className="popupContainer" onClick={this.handleClick}> // unmount on click
+      <div ref="self" className="popupContainer" onClick={this.handleClick}>
         {this.props.children}
       </div>
     );

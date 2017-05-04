@@ -641,7 +641,6 @@ var PopupClass = React.createClass({
     return React.createElement(
       "div",
       { ref: "self", className: "popupContainer", onClick: this.handleClick },
-      " // unmount on click",
       this.props.children
     );
   },

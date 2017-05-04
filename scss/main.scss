@@ -1,15 +1,31 @@
+$back-color: whitesmoke;
+$item-color: white;
+$border-color: lightgray;
+
+$nav-index: 2;
+$popup-index: $nav-index + 1;
+
+@mixin items() {
+  background: $item-color;
+  border: 2px solid $border-color;
+  border-radius: 5px;
+}
+
 * {
-  margin: 0; }
+  margin: 0;
+}
 
 html {
-  background: whitesmoke; }
+  background: $back-color;
+}
 
 nav {
   position: fixed;
   height: 110px;
   width: 100%;
   background: #FF9900;
-  z-index: 2; }
+  z-index: $nav-index;
+}
 
 .popupContainer {
   position: fixed;
@@ -17,20 +33,21 @@ nav {
   width: 100%;
   left: 0px;
   top: 0px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0,0,0,0.7);
   cursor: pointer;
-  z-index: 3; }
-  .popupContainer > :first-child {
+  z-index: $popup-index;
+
+  >:first-child {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
-    background: white;
-    border: 2px solid lightgray;
-    border-radius: 5px;
-    z-index: 3;
-    cursor: auto; }
+    @include items();
+    z-index: $popup-index;
+    cursor: auto;
+  }
+}
 
 #logo {
   position: fixed;
@@ -38,7 +55,8 @@ nav {
   left: 5px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 2; }
+  z-index: $nav-index;
+}
 
 #errorMessage {
   position: fixed;
@@ -46,11 +64,12 @@ nav {
   left: 5px;
   width: 100px;
   height: 100px;
-  z-index: 1;
+  z-index: $nav-index - 1;
   background: white;
   border-radius: 50px;
-  overflow: hidden; }
-  #errorMessage p {
+  overflow: hidden;
+  
+  p {
     position: relative;
     display: inline-block;
     width: 150px;
@@ -59,95 +78,116 @@ nav {
     font-weight: bold;
     text-align: center;
     float: right;
-    animation: errorBlinker 500ms alternate infinite; }
+    animation: errorBlinker 500ms alternate infinite;
+  }
+}
 
 @keyframes errorBlinker {
-  from {
-    color: black; }
-  to {
-    color: red; } }
+  from {color: black;}
+  to {color: red;}
+}
 
 #account {
   position: fixed;
   top: 11px;
   right: 15px;
   padding-left: 0px;
-  background: whitesmoke;
+  background: $back-color;
   list-style: none;
   border-radius: 10px;
-  z-index: 2; }
-  #account li {
+  z-index: $nav-index;
+
+  li {
     cursor: pointer;
-    background: white;
+    background: $item-color;
     margin: 5px;
     padding: 5px;
     padding-top: 0px;
     padding-bottom: 2px;
     border-radius: 10px;
-    text-align: center; }
-  #account li:hover {
-    background: lightgray; }
+    text-align: center;
+  }
+  
+  li:hover {
+    background: $border-color;
+  }
+}
 
 #accountLogger {
   position: fixed;
   top: 5px;
   right: 10px;
-  z-index: 2; }
+  z-index: $nav-index;
+}
 
-#accountForm * {
-  display: block;
-  margin-bottom: 2px; }
-
-#accountForm .formSubmit {
-  float: left; }
+#accountForm {
+  * {
+    display: block;
+    margin-bottom: 2px;
+  }
+  
+  .formSubmit {
+    float: left;
+  }
+}
 
 #accountToggle {
-  float: right; }
+  float: right;
+}
 
 #followList {
   max-height: 200px;
-  background: white;
-  border: 2px solid lightgray;
-  border-radius: 5px;
+  @include items();
   overflow: hidden;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+}
 
 .follow * {
   display: inline-block;
-  margin-left: 5px; }
+  margin-left: 5px;
+}
 
 .follow:not(:last-child) {
-  border-bottom: 2px solid lightgray; }
+  border-bottom: 2px solid $border-color;
+}
 
 #yellForm {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
   top: 8px;
-  z-index: 2; }
-  #yellForm * {
+  z-index: $nav-index;
+
+  * {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    display: block; }
+    display: block;
+  }
+}
 
 #yellTextArea {
   width: 300px;
   height: 70px;
   overflow: hidden;
-  resize: none; }
+  resize: none;
+}
 
 #userInfo {
   position: fixed;
   top: 75px;
   left: 125px;
-  z-index: 2; }
-  #userInfo * {
+  z-index: $nav-index;
+  
+  * {
     display: inline;
-    margin-right: 5px; }
+    margin-right: 5px;
+  }
+}
 
 #content {
-  padding-top: 115px; }
+  padding-top: 115px;
+}
 
 #feedSlider {
   position: absolute;
@@ -164,7 +204,8 @@ nav {
   text-align: right;
   padding: 4px;
   padding-right: 10px;
-  padding-left: 10px; }
+  padding-left: 10px;
+}
 
 #feedSlider:before {
   position: absolute;
@@ -173,9 +214,10 @@ nav {
   width: 28px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: $item-color;
   transition: .4s;
-  border-radius: 50%; }
+  border-radius: 50%;
+}
 
 #feedSwitch {
   position: relative;
@@ -184,25 +226,34 @@ nav {
   height: 36px;
   margin-bottom: 5px;
   left: 50%;
-  transform: translateX(-50%); }
-  #feedSwitch input {
-    display: none; }
-  #feedSwitch input:focus + #feedSlider {
-    box-shadow: 0 0 1px #2196F3; }
-  #feedSwitch input:checked + #feedSlider:before {
-    transform: translateX(84px); }
-  #feedSwitch input:checked + #feedSlider {
-    text-align: left; }
+  transform: translateX(-50%);
+  
+  input {
+    display: none;
+  }
+  
+  input:focus + #feedSlider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + #feedSlider:before {
+    transform: translateX(84px);
+  }
+  
+  input:checked + #feedSlider {
+    text-align: left;
+  }
+}
 
 #yells {
   width: 400px;
   margin: auto;
-  background: white;
-  border: 2px solid lightgray;
-  border-radius: 5px; }
+  @include items();
+}
 
 .yell:not(:last-child) {
-  border-bottom: 2px solid lightgray; }
+  border-bottom: 2px solid $border-color;
+}
 
 .yellName {
   display: inline-block;
@@ -210,19 +261,23 @@ nav {
   padding: 3px;
   padding-top: 0px;
   cursor: pointer;
-  background: lightgray;
+  background: $border-color;
   border-radius: 0px 0px 5px 5px;
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 .yellName:hover {
-  color: #0099FF; }
+  color: #0099FF;
+}
 
 .yellMessage {
   margin-left: 27px;
   margin-right: 20px;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+}
 
 .yellDate {
   text-align: right;
   margin-right: 5px;
-  font-size: 8pt; }
+  font-size: 8pt;
+}
