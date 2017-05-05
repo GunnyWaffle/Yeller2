@@ -3,12 +3,27 @@ $item-color: white;
 $border-color: lightgray;
 
 $nav-index: 2;
-$popup-index: $nav-index + 1;
+$error-index: $nav-index + 2;
+$popup-index: $error-index + 1;
+
+$pill: 9999px;
 
 @mixin items() {
   background: $item-color;
   border: 2px solid $border-color;
   border-radius: 5px;
+}
+
+@mixin button($size) {
+  font-size: $size * 2.4 + pt;
+  padding: $size + px;
+  padding-left: $size * 3 + px;
+  padding-right: $size * 3 + px;
+  border-radius: $pill;
+  border: none;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  text-align: center;
 }
 
 * {
@@ -57,18 +72,18 @@ nav {
 
 #logo {
   left: 5px;
-  border-radius: 50%;
+  border-radius: $pill;
   cursor: pointer;
-  z-index: $nav-index;
+  z-index: $error-index;
 }
 
 #errorMessage {
   left: 5px;
   width: 100px;
   height: 100px;
-  z-index: $nav-index - 1;
+  z-index: $error-index - 1;
   background: white;
-  border-radius: 50px;
+  border-radius: $pill;
   overflow: hidden;
   
   p {
@@ -92,45 +107,42 @@ nav {
 #account {
   right: 15px;
   padding-left: 0px;
-  background: $back-color;
+  background: $border-color;
   list-style: none;
   border-radius: 10px;
   z-index: $nav-index;
 
   li {
-    cursor: pointer;
+    @include button(5);
     background: $item-color;
     margin: 5px;
-    padding: 5px;
     padding-top: 0px;
     padding-bottom: 2px;
-    border-radius: 10px;
-    text-align: center;
   }
   
   li:hover {
-    background: $border-color;
+    background: $back-color;
   }
 }
 
 #accountLogger {
   z-index: $nav-index;
   right: 15px;
-}
 
-#accountForm {
-  * {
-    display: block;
-    margin-bottom: 2px;
+  #accountForm {
+    * {
+      display: block;
+      margin-bottom: 2px;
+    }
+    
+    .formSubmit {
+      float: left;
+    }
   }
   
-  .formSubmit {
-    float: left;
+  #accountToggle {
+    float: right;
   }
-}
-
-#accountToggle {
-  float: right;
 }
 
 #followList {
@@ -140,19 +152,26 @@ nav {
   overflow-y: scroll;
 }
 
-.follow * {
-  display: inline-block;
-  margin-left: 5px;
-}
+.follow {
+  * {
+    display: inline-block;
+    margin-left: 5px;
+  }
 
-.follow:not(:last-child) {
-  border-bottom: 2px solid $border-color;
+  &:not(:last-child) {
+    border-bottom: 2px solid $border-color;
+  }
 }
 
 #yellButton {
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: $nav-index
+  @include button(10);
+  z-index: $nav-index;
+  
+  &:hover {
+    background: #0099FF;
+  }
 }
 
 #yellForm {
@@ -174,13 +193,34 @@ nav {
 }
 
 #userInfo {
-  top: 75px;
+  height: 45%;
+  top: 78%;
   left: 125px;
+  border-radius: 20px 20px 0px 0px;
+  background: $item-color;
   z-index: $nav-index;
   
   * {
     display: inline;
-    margin-right: 5px;
+    margin: 10px;
+  }
+  
+  #userPageName {
+    padding-right: 10px;
+  }
+  
+  button {
+    margin-right: 0px;
+    @include button(5);
+    background: $back-color;
+  }
+  
+  #followButton:hover {
+    background: #00BA39;
+  }
+  
+  #unfollowButton:hover {
+    background: #E42131;
   }
 }
 
@@ -197,25 +237,25 @@ nav {
   bottom: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 34px;
+  border-radius: $pill;
   font-weight: bold;
   font-size: 16pt;
   text-align: right;
   padding: 4px;
   padding-right: 10px;
   padding-left: 10px;
-}
-
-#feedSlider:before {
-  position: absolute;
-  content: "";
-  height: 28px;
-  width: 28px;
-  left: 4px;
-  bottom: 4px;
-  background-color: $item-color;
-  transition: .4s;
-  border-radius: 50%;
+  
+  &:before {
+    position: absolute;
+    content: "";
+    height: 28px;
+    width: 28px;
+    left: 4px;
+    bottom: 4px;
+    background-color: $item-color;
+    transition: .4s;
+    border-radius: $pill;
+  }
 }
 
 #feedSwitch {
@@ -263,10 +303,10 @@ nav {
   background: $border-color;
   border-radius: 0px 0px 5px 5px;
   font-weight: bold;
-}
 
-.yellName:hover {
-  color: #0099FF;
+  &:hover {
+    color: #0099FF;
+  }
 }
 
 .yellMessage {

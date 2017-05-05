@@ -21,14 +21,14 @@ const renderPage = function() {
         <div id="errorMessage">
           <p></p>
         </div>
-        <div id="userInfo">
         {this.state.loggedIn && userPage !== "" && userPage !== this.state.username ?
-          <FollowClass username={this.state.username} userPage={userPage} csrf={this.state.csrf}/>
+          <div id="userInfo">
+            <FollowClass username={this.state.username} userPage={userPage} csrf={this.state.csrf}/>
+            <h2 id="userPageName">{userPage}</h2>
+          </div>
           :
           null
-          }
-          <h2 id="userPageName">{userPage}</h2>
-        </div>
+        }
         {this.state.loggedIn ?
           <button id="yellButton" onClick={() => {this.openPopup("yell");}}>Yell!!!</button>
           :

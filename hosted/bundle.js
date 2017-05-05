@@ -154,16 +154,16 @@ var renderPage = function renderPage() {
         { id: "errorMessage" },
         React.createElement("p", null)
       ),
-      React.createElement(
+      this.state.loggedIn && userPage !== "" && userPage !== this.state.username ? React.createElement(
         "div",
         { id: "userInfo" },
-        this.state.loggedIn && userPage !== "" && userPage !== this.state.username ? React.createElement(FollowClass, { username: this.state.username, userPage: userPage, csrf: this.state.csrf }) : null,
+        React.createElement(FollowClass, { username: this.state.username, userPage: userPage, csrf: this.state.csrf }),
         React.createElement(
           "h2",
           { id: "userPageName" },
           userPage
         )
-      ),
+      ) : null,
       this.state.loggedIn ? React.createElement(
         "button",
         { id: "yellButton", onClick: function onClick() {

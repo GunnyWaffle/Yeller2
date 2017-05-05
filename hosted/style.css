@@ -23,7 +23,7 @@ nav {
   top: 0px;
   background: rgba(0, 0, 0, 0.7);
   cursor: pointer;
-  z-index: 3; }
+  z-index: 5; }
   .popupContainer > :first-child {
     position: absolute;
     left: 50%;
@@ -33,22 +33,22 @@ nav {
     background: white;
     border: 2px solid lightgray;
     border-radius: 5px;
-    z-index: 3;
+    z-index: 5;
     cursor: auto; }
 
 #logo {
   left: 5px;
-  border-radius: 50%;
+  border-radius: 9999px;
   cursor: pointer;
-  z-index: 2; }
+  z-index: 4; }
 
 #errorMessage {
   left: 5px;
   width: 100px;
   height: 100px;
-  z-index: 1;
+  z-index: 3;
   background: white;
-  border-radius: 50px;
+  border-radius: 9999px;
   overflow: hidden; }
   #errorMessage p {
     position: relative;
@@ -70,35 +70,37 @@ nav {
 #account {
   right: 15px;
   padding-left: 0px;
-  background: whitesmoke;
+  background: lightgray;
   list-style: none;
   border-radius: 10px;
   z-index: 2; }
   #account li {
+    font-size: 12pt;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 9999px;
+    border: none;
     cursor: pointer;
+    transition: background 0.4s ease;
+    text-align: center;
     background: white;
     margin: 5px;
-    padding: 5px;
     padding-top: 0px;
-    padding-bottom: 2px;
-    border-radius: 10px;
-    text-align: center; }
+    padding-bottom: 2px; }
   #account li:hover {
-    background: lightgray; }
+    background: whitesmoke; }
 
 #accountLogger {
   z-index: 2;
   right: 15px; }
-
-#accountForm * {
-  display: block;
-  margin-bottom: 2px; }
-
-#accountForm .formSubmit {
-  float: left; }
-
-#accountToggle {
-  float: right; }
+  #accountLogger #accountForm * {
+    display: block;
+    margin-bottom: 2px; }
+  #accountLogger #accountForm .formSubmit {
+    float: left; }
+  #accountLogger #accountToggle {
+    float: right; }
 
 #followList {
   max-height: 200px;
@@ -118,7 +120,18 @@ nav {
 #yellButton {
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 24pt;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  text-align: center;
   z-index: 2; }
+  #yellButton:hover {
+    background: #0099FF; }
 
 #yellForm {
   z-index: 2; }
@@ -134,12 +147,33 @@ nav {
     resize: none; }
 
 #userInfo {
-  top: 75px;
+  height: 45%;
+  top: 78%;
   left: 125px;
+  border-radius: 20px 20px 0px 0px;
+  background: white;
   z-index: 2; }
   #userInfo * {
     display: inline;
-    margin-right: 5px; }
+    margin: 10px; }
+  #userInfo #userPageName {
+    padding-right: 10px; }
+  #userInfo button {
+    margin-right: 0px;
+    font-size: 12pt;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.4s ease;
+    text-align: center;
+    background: whitesmoke; }
+  #userInfo #followButton:hover {
+    background: #00BA39; }
+  #userInfo #unfollowButton:hover {
+    background: #E42131; }
 
 #content {
   padding-top: 115px; }
@@ -153,24 +187,23 @@ nav {
   bottom: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 34px;
+  border-radius: 9999px;
   font-weight: bold;
   font-size: 16pt;
   text-align: right;
   padding: 4px;
   padding-right: 10px;
   padding-left: 10px; }
-
-#feedSlider:before {
-  position: absolute;
-  content: "";
-  height: 28px;
-  width: 28px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%; }
+  #feedSlider:before {
+    position: absolute;
+    content: "";
+    height: 28px;
+    width: 28px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 9999px; }
 
 #feedSwitch {
   position: relative;
@@ -208,9 +241,8 @@ nav {
   background: lightgray;
   border-radius: 0px 0px 5px 5px;
   font-weight: bold; }
-
-.yellName:hover {
-  color: #0099FF; }
+  .yellName:hover {
+    color: #0099FF; }
 
 .yellMessage {
   margin-left: 27px;
