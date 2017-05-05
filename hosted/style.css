@@ -1,3 +1,46 @@
+.GUIswitch {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+  margin-bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%); }
+  .GUIswitch div {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 9999px;
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: right;
+    padding: 4px;
+    padding-right: 10px;
+    padding-left: 10px; }
+    .GUIswitch div:before {
+      position: absolute;
+      content: "";
+      height: 28px;
+      width: 28px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 9999px; }
+  .GUIswitch input {
+    display: none; }
+  .GUIswitch input:focus + div {
+    box-shadow: 0 0 1px #2196F3; }
+  .GUIswitch input:checked + div:before {
+    transform: translateX(84px); }
+  .GUIswitch input:checked + div {
+    text-align: left; }
+
 * {
   margin: 0; }
 
@@ -257,50 +300,6 @@ nav {
 
 #content {
   padding-top: 115px; }
-
-#feedSlider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 9999px;
-  font-weight: bold;
-  font-size: 16pt;
-  text-align: right;
-  padding: 4px;
-  padding-right: 10px;
-  padding-left: 10px; }
-  #feedSlider:before {
-    position: absolute;
-    content: "";
-    height: 28px;
-    width: 28px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 9999px; }
-
-#feedSwitch {
-  position: relative;
-  display: inline-block;
-  width: 120px;
-  height: 36px;
-  margin-bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%); }
-  #feedSwitch input {
-    display: none; }
-  #feedSwitch input:focus + #feedSlider {
-    box-shadow: 0 0 1px #2196F3; }
-  #feedSwitch input:checked + #feedSlider:before {
-    transform: translateX(84px); }
-  #feedSwitch input:checked + #feedSlider {
-    text-align: left; }
 
 #yells {
   width: 400px;

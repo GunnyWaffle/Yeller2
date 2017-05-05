@@ -34,9 +34,17 @@ $pill: 9999px;
     background-image: linear-gradient(to bottom, $hover-color, mix($hover-color, #C7C7C7));
   }
 }
-
-@mixin slider-toggle($slider, $switch) {
-  #{$slider} {
+  
+.GUIswitch {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+  margin-bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  div {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -66,29 +74,19 @@ $pill: 9999px;
     }
   }
   
-  #{$switch} {
-    position: relative;
-    display: inline-block;
-    width: 120px;
-    height: 36px;
-    margin-bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    
-    input {
-      display: none;
-    }
-    
-    input:focus + #{$slider} {
-      box-shadow: 0 0 1px #2196F3;
-    }
-    
-    input:checked + #{$slider}:before {
-      transform: translateX(84px);
-    }
-    
-    input:checked + #{$slider} {
-      text-align: left;
-    }
+  input {
+    display: none;
+  }
+  
+  input:focus + div {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + div:before {
+    transform: translateX(84px);
+  }
+  
+  input:checked + div {
+    text-align: left;
   }
 }

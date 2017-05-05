@@ -32,3 +32,25 @@ const PopupClass = React.createClass({
     }
   },
 });
+
+const SwitchClass = React.createClass({
+  render: function() {
+    return(
+      <label className="GUIswitch">
+        <input type="checkbox" defaultChecked={this.props.checked} onChange={this.props.handleClick}/>
+        <div>{this.props.checked ? this.props.on : this.props.off}</div>
+      </label>
+    );
+  },
+  propTypes: {
+    checked: React.PropTypes.bool.isRequired,
+    handleClick: React.PropTypes.func.isRequired,
+    on: React.PropTypes.string,
+    off: React.PropTypes.string,
+  },
+  getDefaultProps: () => {return{
+    checked: false,
+    on: "On",
+    off: "Off",
+  }},
+});

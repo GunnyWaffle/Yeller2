@@ -38,10 +38,7 @@ const renderPage = function() {
       </nav>
       <div id="content">
         {this.state.loggedIn && userPage === "" ?
-          <label id="feedSwitch">
-            <input type="checkbox" defaultChecked={this.state.globalFeed} onChange={this.handleFeedChange}/>
-            <div id="feedSlider">{this.state.globalFeed ? "Globals" : "Follows"}</div>
-          </label>
+          <SwitchClass checked={this.state.globalFeed} handleClick={this.handleFeedChange} on="Globals" off="Follows" />
           :
           null
         }

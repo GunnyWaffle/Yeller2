@@ -179,16 +179,7 @@ var renderPage = function renderPage() {
     React.createElement(
       "div",
       { id: "content" },
-      this.state.loggedIn && userPage === "" ? React.createElement(
-        "label",
-        { id: "feedSwitch" },
-        React.createElement("input", { type: "checkbox", defaultChecked: this.state.globalFeed, onChange: this.handleFeedChange }),
-        React.createElement(
-          "div",
-          { id: "feedSlider" },
-          this.state.globalFeed ? "Globals" : "Follows"
-        )
-      ) : null,
+      this.state.loggedIn && userPage === "" ? React.createElement(SwitchClass, { checked: this.state.globalFeed, handleClick: this.handleFeedChange, on: "Globals", off: "Follows" }) : null,
       React.createElement(YellFeedClass, { csrf: this.state.csrf, loggedIn: this.state.loggedIn, query: query })
     ),
     this.state.yell ? React.createElement(
@@ -673,5 +664,35 @@ var PopupClass = React.createClass({
     if (e.target === this.refs.self) {
       this.props.unMount();
     }
+  }
+});
+
+var SwitchClass = React.createClass({
+  displayName: "SwitchClass",
+
+  render: function render() {
+    return React.createElement(
+      "label",
+      { className: "GUIswitch" },
+      React.createElement("input", { type: "checkbox", defaultChecked: this.props.checked, onChange: this.props.handleClick }),
+      React.createElement(
+        "div",
+        null,
+        this.props.checked ? this.props.on : this.props.off
+      )
+    );
+  },
+  propTypes: {
+    checked: React.PropTypes.bool.isRequired,
+    handleClick: React.PropTypes.func.isRequired,
+    on: React.PropTypes.string,
+    off: React.PropTypes.string
+  },
+  getDefaultProps: function getDefaultProps() {
+    return {
+      checked: false,
+      on: "On",
+      off: "Off"
+    };
   }
 });
