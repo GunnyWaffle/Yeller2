@@ -70,7 +70,7 @@ nav {
 #account {
   right: 15px;
   padding-left: 0px;
-  background: lightgray;
+  background: #0099FF;
   list-style: none;
   border-radius: 10px;
   z-index: 2; }
@@ -80,14 +80,20 @@ nav {
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 9999px;
-    border: none;
     cursor: pointer;
-    transition: background 0.4s ease;
+    border: 1px solid lightgray;
+    transition: background-image 0.4s ease;
     text-align: center;
-    background: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF);
     margin: 5px;
     padding-top: 0px;
     padding-bottom: 2px; }
+    #account li:hover {
+      border: 1px solid #7A7A7A;
+      background-image: linear-gradient(to bottom, #EEEEEE, #dbdbdb); }
   #account li:hover {
     background: whitesmoke; }
 
@@ -97,10 +103,42 @@ nav {
   #accountLogger #accountForm * {
     display: block;
     margin-bottom: 2px; }
-  #accountLogger #accountForm .formSubmit {
-    float: left; }
-  #accountLogger #accountToggle {
-    float: right; }
+  #accountLogger #accountForm input[type=submit] {
+    float: left;
+    font-size: 9.6pt;
+    padding: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    transition: background-image 0.4s ease;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF); }
+    #accountLogger #accountForm input[type=submit]:hover {
+      border: 1px solid #7A7A7A;
+      background-image: linear-gradient(to bottom, #EEEEEE, #dbdbdb); }
+  #accountLogger button {
+    float: right;
+    font-size: 9.6pt;
+    padding: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    transition: background-image 0.4s ease;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF); }
+    #accountLogger button:hover {
+      border: 1px solid #7A7A7A;
+      background-image: linear-gradient(to bottom, #EEEEEE, #dbdbdb); }
 
 #followList {
   max-height: 200px;
@@ -125,13 +163,18 @@ nav {
   padding-left: 30px;
   padding-right: 30px;
   border-radius: 9999px;
-  border: none;
   cursor: pointer;
-  transition: background 0.4s ease;
+  border: 1px solid lightgray;
+  transition: background-image 0.4s ease;
   text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF);
   z-index: 2; }
   #yellButton:hover {
-    background: #0099FF; }
+    border: 1px solid #7A7A7A;
+    background-image: linear-gradient(to bottom, #EEEEEE, #dbdbdb); }
 
 #yellForm {
   z-index: 2; }
@@ -145,6 +188,23 @@ nav {
     height: 70px;
     overflow: hidden;
     resize: none; }
+  #yellForm input[type=submit] {
+    font-size: 9.6pt;
+    padding: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    transition: background-image 0.4s ease;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF); }
+    #yellForm input[type=submit]:hover {
+      border: 1px solid #7A7A7A;
+      background-image: linear-gradient(to bottom, #EEEEEE, #dbdbdb); }
 
 #userInfo {
   height: 45%;
@@ -159,21 +219,41 @@ nav {
   #userInfo #userPageName {
     padding-right: 10px; }
   #userInfo button {
-    margin-right: 0px;
+    margin-right: 0px; }
+  #userInfo #followButton {
     font-size: 12pt;
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 9999px;
-    border: none;
     cursor: pointer;
-    transition: background 0.4s ease;
+    border: 1px solid lightgray;
+    transition: background-image 0.4s ease;
     text-align: center;
-    background: whitesmoke; }
-  #userInfo #followButton:hover {
-    background: #00BA39; }
-  #userInfo #unfollowButton:hover {
-    background: #E42131; }
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF); }
+    #userInfo #followButton:hover {
+      border: 1px solid #7A7A7A;
+      background-image: linear-gradient(to bottom, #00BA39, #64c180); }
+  #userInfo #unfollowButton {
+    font-size: 12pt;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    transition: background-image 0.4s ease;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #FFFFFF, #CFCFCF); }
+    #userInfo #unfollowButton:hover {
+      border: 1px solid #7A7A7A;
+      background-image: linear-gradient(to bottom, #E42131, #d6747c); }
 
 #content {
   padding-top: 115px; }

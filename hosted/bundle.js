@@ -91,15 +91,15 @@ var renderAccount = function renderAccount() {
       React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
       this.state.type === 'signup' ? React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "retype password" }) : null,
       React.createElement("input", { type: "hidden", name: "_csrf", value: this.props.csrf }),
-      React.createElement("input", { className: "formSubmit", type: "submit", value: this.state.type === 'login' ? "Log In" : "Sign Up" })
+      React.createElement("input", { type: "submit", value: this.state.type === 'login' ? "Log In" : "Sign Up" })
     ),
     this.state.type === 'login' ? React.createElement(
       "button",
-      { id: "accountToggle", onClick: toggleForm },
+      { onClick: toggleForm },
       "Register"
     ) : React.createElement(
       "button",
-      { id: "accountToggle", onClick: toggleForm },
+      { onClick: toggleForm },
       "Cancel"
     )
   );
@@ -161,6 +161,7 @@ var renderPage = function renderPage() {
         React.createElement(
           "h2",
           { id: "userPageName" },
+          "@",
           userPage
         )
       ) : null,

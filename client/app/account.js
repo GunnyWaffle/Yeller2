@@ -70,12 +70,12 @@ const renderAccount = function() {
         <input id="pass" type="password" name="pass" placeholder="password"/>
         {this.state.type === 'signup' ? <input id="pass2" type="password" name="pass2" placeholder="retype password"/> : null}
         <input type="hidden" name="_csrf" value={this.props.csrf}/>
-        <input className="formSubmit" type="submit" value={this.state.type === 'login' ? "Log In" : "Sign Up"}/>
+        <input type="submit" value={this.state.type === 'login' ? "Log In" : "Sign Up"}/>
       </form>
       {this.state.type === 'login' ?
-        <button id="accountToggle" onClick={toggleForm}>Register</button>
+        <button onClick={toggleForm}>Register</button>
         :
-        <button id="accountToggle" onClick={toggleForm}>Cancel</button>
+        <button onClick={toggleForm}>Cancel</button>
       }
     </div>
   );

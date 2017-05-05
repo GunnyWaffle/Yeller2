@@ -24,7 +24,7 @@ const renderPage = function() {
         {this.state.loggedIn && userPage !== "" && userPage !== this.state.username ?
           <div id="userInfo">
             <FollowClass username={this.state.username} userPage={userPage} csrf={this.state.csrf}/>
-            <h2 id="userPageName">{userPage}</h2>
+            <h2 id="userPageName">@{userPage}</h2>
           </div>
           :
           null
