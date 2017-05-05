@@ -31,7 +31,7 @@ const renderYellBox = function() {
           method="POST"
           className="yellForm"
     >
-      <textarea id="yellTextArea" value={this.state.yell} name="message" placeholder="YELL HERE!!!" onChange={this.updateYell}></textarea>
+      <textarea value={this.state.yell} name="message" placeholder="YELL HERE!!!" onChange={this.updateYell}></textarea>
       <input type="hidden" name="_csrf" value={this.props.csrf}/>
       <input type="submit" value={"YELL!!! - " + (140 - this.state.yell.length) + " characters left"}/>
     </form>

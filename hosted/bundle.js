@@ -119,6 +119,8 @@ var AccountClass = React.createClass({
 });
 "use strict";
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var PageClass = void 0;
 var pageRenderer = void 0;
 
@@ -151,20 +153,28 @@ var renderPage = function renderPage() {
         "div",
         { id: "errorMessage" },
         React.createElement("p", null)
-      )
-    ),
-    React.createElement(
-      "div",
-      { id: "userInfo" },
-      this.state.loggedIn && userPage !== "" && userPage !== this.state.username ? React.createElement(FollowClass, { username: this.state.username, userPage: userPage, csrf: this.state.csrf }) : null,
+      ),
       React.createElement(
-        "h2",
-        { id: "userPageName" },
-        userPage
-      )
+        "div",
+        { id: "userInfo" },
+        this.state.loggedIn && userPage !== "" && userPage !== this.state.username ? React.createElement(FollowClass, { username: this.state.username, userPage: userPage, csrf: this.state.csrf }) : null,
+        React.createElement(
+          "h2",
+          { id: "userPageName" },
+          userPage
+        )
+      ),
+      this.state.loggedIn ? React.createElement(
+        "button",
+        { id: "yellButton", onClick: function onClick() {
+            _this.openPopup("yell");
+          } },
+        "Yell!!!"
+      ) : null,
+      React.createElement(AccountClass, { csrf: this.state.csrf, loggedIn: this.state.loggedIn, username: this.state.username, openSettings: function openSettings() {
+          _this.openPopup("settings");
+        } })
     ),
-    React.createElement(AccountClass, { csrf: this.state.csrf, loggedIn: this.state.loggedIn, username: this.state.username, openSettings: this.openSettings }),
-    this.state.loggedIn ? React.createElement(YellFormClass, { csrf: this.state.csrf }) : null,
     React.createElement(
       "div",
       { id: "content" },
@@ -180,9 +190,18 @@ var renderPage = function renderPage() {
       ) : null,
       React.createElement(YellFeedClass, { csrf: this.state.csrf, loggedIn: this.state.loggedIn, query: query })
     ),
-    this.state.settingsOpen ? React.createElement(
+    this.state.yell ? React.createElement(
       PopupClass,
-      { unMount: this.closeSettings },
+      { unMount: function unMount() {
+          _this.closePopup("yell");
+        } },
+      React.createElement(YellFormClass, { csrf: this.state.csrf })
+    ) : null,
+    this.state.settings ? React.createElement(
+      PopupClass,
+      { unMount: function unMount() {
+          _this.closePopup("settings");
+        } },
       React.createElement(SettingsClass, { csrf: this.state.csrf, username: this.state.username })
     ) : null
   );
@@ -200,7 +219,8 @@ var createPage = function createPage(csrf) {
         csrf: "", // POST token
         loggedIn: false, // is the user logged in
         globalFeed: true, // is the global feed active
-        settingsOpen: false };
+        settings: false, // are the settings open
+        yell: false };
     },
     componentWillMount: function componentWillMount() {
       if (!history.state) {
@@ -241,16 +261,16 @@ var createPage = function createPage(csrf) {
         }, 5000);
       }
     },
-    // close the settings popup
-    closeSettings: function closeSettings() {
-      if (this.state.settingsOpen) {
-        this.setState({ settingsOpen: false });
+    // close the popup
+    closePopup: function closePopup(popup) {
+      if (this.state[popup]) {
+        this.setState(_defineProperty({}, popup, false));
       }
     },
-    // open the settings popup
-    openSettings: function openSettings() {
-      if (!this.state.settingsOpen) {
-        this.setState({ settingsOpen: true });
+    // open the popup
+    openPopup: function openPopup(popup) {
+      if (!this.state[popup]) {
+        this.setState(_defineProperty({}, popup, true));
       }
     }
   });
@@ -495,7 +515,7 @@ var renderYellBox = function renderYellBox() {
       method: "POST",
       className: "yellForm"
     },
-    React.createElement("textarea", { id: "yellTextArea", value: this.state.yell, name: "message", placeholder: "YELL HERE!!!", onChange: this.updateYell }),
+    React.createElement("textarea", { value: this.state.yell, name: "message", placeholder: "YELL HERE!!!", onChange: this.updateYell }),
     React.createElement("input", { type: "hidden", name: "_csrf", value: this.props.csrf }),
     React.createElement("input", { type: "submit", value: "YELL!!! - " + (140 - this.state.yell.length) + " characters left" })
   );

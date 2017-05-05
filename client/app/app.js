@@ -21,21 +21,21 @@ const renderPage = function() {
         <div id="errorMessage">
           <p></p>
         </div>
-      </nav>
-      <div id="userInfo">
-      {this.state.loggedIn && userPage !== "" && userPage !== this.state.username ?
-        <FollowClass username={this.state.username} userPage={userPage} csrf={this.state.csrf}/>
-        :
-        null
+        <div id="userInfo">
+        {this.state.loggedIn && userPage !== "" && userPage !== this.state.username ?
+          <FollowClass username={this.state.username} userPage={userPage} csrf={this.state.csrf}/>
+          :
+          null
+          }
+          <h2 id="userPageName">{userPage}</h2>
+        </div>
+        {this.state.loggedIn ?
+          <button id="yellButton" onClick={() => {this.openPopup("yell");}}>Yell!!!</button>
+          :
+          null
         }
-        <h2 id="userPageName">{userPage}</h2>
-      </div>
-      <AccountClass csrf={this.state.csrf} loggedIn={this.state.loggedIn} username={this.state.username} openSettings={this.openSettings}/>
-      {this.state.loggedIn ?
-        <YellFormClass csrf={this.state.csrf} />
-        :
-        null
-      }
+        <AccountClass csrf={this.state.csrf} loggedIn={this.state.loggedIn} username={this.state.username} openSettings={()=>{this.openPopup("settings");}}/>
+      </nav>
       <div id="content">
         {this.state.loggedIn && userPage === "" ?
           <label id="feedSwitch">
@@ -47,8 +47,15 @@ const renderPage = function() {
         }
         <YellFeedClass csrf={this.state.csrf} loggedIn={this.state.loggedIn} query={query} />
       </div>
-      {this.state.settingsOpen ?
-        <PopupClass unMount={this.closeSettings}>
+      {this.state.yell ?
+        <PopupClass unMount={()=>{this.closePopup("yell");}}>
+          <YellFormClass csrf={this.state.csrf} />
+        </PopupClass>
+        :
+        null
+      }
+      {this.state.settings ?
+        <PopupClass unMount={()=>{this.closePopup("settings");}}>
           <SettingsClass csrf={this.state.csrf} username={this.state.username}/>
         </PopupClass>
         :
@@ -67,7 +74,8 @@ const createPage = function(csrf) {
       csrf: "", // POST token
       loggedIn: false, // is the user logged in
       globalFeed: true, // is the global feed active
-      settingsOpen: false, // are the settings open
+      settings: false, // are the settings open
+      yell: false, // is the yell form open
     }},
     componentWillMount: function () {
       if (!history.state) {
@@ -108,16 +116,16 @@ const createPage = function(csrf) {
         }, 5000);
       }
     },
-    // close the settings popup
-    closeSettings: function() {
-      if (this.state.settingsOpen) {
-        this.setState({settingsOpen: false});
+    // close the popup
+    closePopup: function(popup) {
+      if (this.state[popup]) {
+        this.setState({[popup]: false});
       }
     },
-    // open the settings popup
-    openSettings: function() {
-      if (!this.state.settingsOpen) {
-        this.setState({settingsOpen: true});
+    // open the popup
+    openPopup: function(popup) {
+      if (!this.state[popup]) {
+        this.setState({[popup]: true});
       }
     },
   });

@@ -10,6 +10,10 @@ nav {
   width: 100%;
   background: #FF9900;
   z-index: 2; }
+  nav > * {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); }
 
 .popupContainer {
   position: fixed;
@@ -33,16 +37,12 @@ nav {
     cursor: auto; }
 
 #logo {
-  position: fixed;
-  top: 5px;
   left: 5px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 2; }
 
 #errorMessage {
-  position: fixed;
-  top: 5px;
   left: 5px;
   width: 100px;
   height: 100px;
@@ -68,8 +68,6 @@ nav {
     color: red; } }
 
 #account {
-  position: fixed;
-  top: 11px;
   right: 15px;
   padding-left: 0px;
   background: whitesmoke;
@@ -89,10 +87,8 @@ nav {
     background: lightgray; }
 
 #accountLogger {
-  position: fixed;
-  top: 5px;
-  right: 10px;
-  z-index: 2; }
+  z-index: 2;
+  right: 15px; }
 
 #accountForm * {
   display: block;
@@ -119,26 +115,25 @@ nav {
 .follow:not(:last-child) {
   border-bottom: 2px solid lightgray; }
 
-#yellForm {
-  position: fixed;
+#yellButton {
   left: 50%;
-  transform: translateX(-50%);
-  top: 8px;
+  transform: translate(-50%, -50%);
+  z-index: 2; }
+
+#yellForm {
   z-index: 2; }
   #yellForm * {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     display: block; }
-
-#yellTextArea {
-  width: 300px;
-  height: 70px;
-  overflow: hidden;
-  resize: none; }
+  #yellForm textArea {
+    width: 300px;
+    height: 70px;
+    overflow: hidden;
+    resize: none; }
 
 #userInfo {
-  position: fixed;
   top: 75px;
   left: 125px;
   z-index: 2; }
