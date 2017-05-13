@@ -57,19 +57,19 @@ var renderAccount = function renderAccount() {
       { id: "account" },
       React.createElement(
         "li",
-        { onClick: function onClick() {
+        { className: "GUIbutton", onClick: function onClick() {
             return pageRenderer.handlePageChange("/" + _this.props.username);
           } },
         "Profile"
       ),
       React.createElement(
         "li",
-        { onClick: this.handleLogout },
+        { className: "GUIbutton", onClick: this.handleLogout },
         "Log Out"
       ),
       React.createElement(
         "li",
-        { onClick: this.props.openSettings },
+        { className: "GUIbutton", onClick: this.props.openSettings },
         "Settings"
       )
     );

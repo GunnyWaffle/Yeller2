@@ -87,7 +87,7 @@ nav {
   z-index: $nav-index;
 
   li {
-    @include button(5);
+    @include customButton(5);
     margin: 5px;
     padding-top: 0px;
     padding-bottom: 2px;
@@ -110,13 +110,11 @@ nav {
     
     input[type=submit] {
       float: left;
-      @include button(4);
     }
   }
   
   button {
     float: right;
-    @include button(4);
   }
 }
 
@@ -141,7 +139,7 @@ nav {
 #yellButton {
   left: 50%;
   transform: translate(-50%, -50%);
-  @include button(10);
+  @include customButton(10);
   z-index: $nav-index;
 }
 
@@ -161,10 +159,6 @@ nav {
     overflow: hidden;
     resize: none;
   }
-  
-  input[type=submit] {
-      @include button(4);
-    }
 }
 
 #userInfo {
@@ -189,11 +183,11 @@ nav {
   }
   
   #followButton {
-    @include button(5, #00BA39);
+    @include customButton(5, #00BA39);
   }
   
   #unfollowButton {
-    @include button(5, #E42131);
+    @include customButton(5, #E42131);
   }
 }
 

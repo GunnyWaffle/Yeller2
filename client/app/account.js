@@ -50,9 +50,9 @@ const renderAccount = function() {
   if (this.props.loggedIn) {
     return (
       <ul id="account">
-        <li onClick={() => pageRenderer.handlePageChange("/" + this.props.username)}>Profile</li>
-        <li onClick={this.handleLogout}>Log Out</li>
-        <li onClick={this.props.openSettings}>Settings</li>
+        <li className="GUIbutton" onClick={() => pageRenderer.handlePageChange("/" + this.props.username)}>Profile</li>
+        <li className="GUIbutton" onClick={this.handleLogout}>Log Out</li>
+        <li className="GUIbutton" onClick={this.props.openSettings}>Settings</li>
       </ul>
     );
   }

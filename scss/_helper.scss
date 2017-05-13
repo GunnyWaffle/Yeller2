@@ -14,11 +14,22 @@ $pill: 9999px;
   border-radius: 5px;
 }
 
-@mixin button($size, $hover-color: #EEEEEE) {
+@mixin customButton($size, $hover-color: #EEEEEE) {
   font-size: $size * 2.4 + pt;
   padding: $size + px;
   padding-left: $size * 3 + px;
   padding-right: $size * 3 + px;
+  
+  &:hover {
+    background-image: linear-gradient(to bottom, $hover-color, mix($hover-color, #C7C7C7));
+  }
+}
+
+.GUIbutton, input[type=submit], button {
+  font-size: 9.6pt;
+  padding: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
   border-radius: $pill;
   cursor: pointer;
   border:1px solid $border-color;
@@ -31,7 +42,7 @@ $pill: 9999px;
   
   &:hover {
     border: 1px solid #7A7A7A;
-    background-image: linear-gradient(to bottom, $hover-color, mix($hover-color, #C7C7C7));
+    background-image: linear-gradient(to bottom, #EEEEEE, mix(#EEEEEE, #C7C7C7));
   }
 }
   
