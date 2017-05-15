@@ -88,6 +88,7 @@ Notes for grader:
   6- the navbar changes a lot based on if you are logged in or not (this mixes in to the other views)
 4) I have only one renderDOM call, the rest is hierarchy and propogation, I tried to develop this page as a fluid experience, with as few unique pages as possible. This makes identifying "views" hard in my case. It is also a lot like twitter, which focues on a unified view as well.
 5) There is a rare chance for a bug, in which document population in mongoose will fail and return garbage data or NULL. I could not trace this down, and it was proven to not be caused by my own code because it happens at random intervals with unchanging code. If this occurs the database will corrupt itself with any relational data and will require a purge, crashing the server in the process.
+6) The Date string formater that I am using works 100% of the time, unless I use it for one React component logic edge case. I tested this edge case in 10 different JS sandboxes online, and in other places on my server and it always works 100% fine, unless I use it for the placeholder Yell feed. If you see the unformated Date string for the YellBot yell, then I have no explanation.
 
 
 credits:
