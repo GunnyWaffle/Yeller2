@@ -6,6 +6,7 @@ let YellModel = {};
 
 const setString = (str) => encodeURIComponent(str).trim().toUpperCase();
 
+// the yell schema
 const YellSchema = new mongoose.Schema({
   message: {
     type: String,
@@ -66,7 +67,26 @@ YellSchema.statics.findByOwner = (ownerIds, callback) => {
   return filterYells(search).exec(callback);
 };
 
+// all promoted yells
 YellSchema.statics.findPromoted = (callback) => filterYells({}, true).exec(callback);
+
+// delete yells by ID(s)
+YellSchema.statics.deleteByIdArray = (yellIDs, callback) => {
+  const search = {
+    _id: { $in: yellIDs },
+  };
+
+  return YellModel.remove(search).exec(callback);
+};
+
+// find yells by ID(s)
+YellSchema.statics.findByIdArray = (yellIDs, callback) => {
+  const search = {
+    _id: { $in: yellIDs },
+  };
+
+  return YellModel.find(search).exec(callback);
+};
 
 YellModel = mongoose.model('Yell', YellSchema);
 

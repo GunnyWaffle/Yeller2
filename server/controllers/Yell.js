@@ -40,26 +40,30 @@ const makeYell = (req, res) => {
   return yellPromise;
 };
 
-const injectPromotionals = (request, response, yells) => {
-  Yell.YellModel.findPromoted((err, docs) => {
-    if (err) {
-      return response.status(500).json({ error: 'An error occurred' });
+// inject promotional yells into the yell feed
+// yells= an array, representing the yell feed
+const injectPromotionals = (response, yells) => Yell.YellModel.findPromoted((err, docs) => {
+  if (err) {
+    return response.status(500).json({ error: 'An error occurred' });
+  }
+
+  // all promoted yells in an array
+  const promotedYells = Yell.YellModel.toAPI(docs);
+  let promoteCounter = 0;
+
+  // inject the promoted yells into the normal yell feed
+  const yellFeed = yells.reduce((arr, val, index) => {
+    // every 3 yells, while there are promoted yells left
+    if (index % 3 === 2 && promoteCounter < promotedYells.length) {
+      // inject the next promoted yell
+      return arr.concat(val, promotedYells[promoteCounter++]);
     }
 
-    const promotedYells = Yell.YellModel.toAPI(docs);
-    let promoteCounter = 0;
+    return arr.concat(val, []);
+  }, []);
 
-    const yellFeed = yells.reduce((arr, val, index) => {
-      if (index % 3 === 2 && promoteCounter < promotedYells.length) {
-        return arr.concat(val, promotedYells[promoteCounter++]);
-      }
-
-      return arr.concat(val, []);
-    }, []);
-
-    return response.status(200).json({ yellFeed });
-  });
-};
+  return response.status(200).json({ yells: yellFeed });
+});
 
 // get yells
 // username= (singular)
@@ -90,7 +94,7 @@ const getYells = (request, response) => {
         }
 
         // process yells for the client
-        return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
+        return injectPromotionals(res, Yell.YellModel.toAPI(docs));
       });
     });
   }
@@ -112,7 +116,7 @@ const getYells = (request, response) => {
       }
 
       // process yells for the client
-      return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
+      return injectPromotionals(res, Yell.YellModel.toAPI(docs));
     });
   }
 
@@ -129,10 +133,73 @@ const getYells = (request, response) => {
       }
 
       // process yells for the client
-      return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
+      return injectPromotionals(res, Yell.YellModel.toAPI(docs));
     });
+  });
+};
+
+// delete yells
+const deleteYells = (req, res) => {
+  if (!req.body.ids) {
+    return res.status(400).json({ error: 'No yell(s) specified' });
+  }
+
+  // parse for old methods, this also ensures an array is used
+  const ids = req.body.ids.split('_');
+
+  // find all yells to be deleted
+  return Yell.YellModel.findByIdArray(ids, (idErr, docs) => {
+    if (idErr) {
+      return res.status(500).json({ error: 'An error occurred' });
+    }
+
+    // if some failed, error out
+    if (ids.length !== docs.length) {
+      return res.status(400).json({ error: 'One or more yells do not exist' });
+    }
+
+    // track IDs for ownership
+    const validIDs = [];
+
+    for (let i = 0; i < docs.length; ++i) {
+      // if this ID is owned by the currently logged in user
+      if (req.session.account._id === docs[i].owner.toString()) {
+        validIDs.push(ids[i]);
+      } else {
+        // invalid ID found
+        break;
+      }
+    }
+
+    // cjeck if all IDs were valid
+    if (validIDs.length !== ids.length) {
+      return res.status(400).json({ error: 'One or more yells do not belong to this account' });
+    }
+
+    // track the error, for scoping reasons
+    let error = undefined;
+
+    // delete the yell(s)
+    const deletePromise = Yell.YellModel.deleteByIdArray(validIDs, (err) => {
+      if (err) error = err;
+    });
+
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'An error occurred' });
+    }
+
+    deletePromise.then(() => res.status(200).json({}));
+
+    deletePromise.catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: 'An error occurred' });
+    });
+
+    return deletePromise;
   });
 };
 
 module.exports.getYells = getYells;
 module.exports.yell = makeYell;
+module.exports.deleteYells = deleteYells;

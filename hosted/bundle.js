@@ -536,11 +536,13 @@ var renderYellFeed = function renderYellFeed() {
     );
   }
 
+  var yellFeed = this;
+
   // populate the yell list
   var yellNodes = this.state.data.map(function (yell) {
     var dateString = new Date(yell.createdDate).format("dddd h:mmtt, d MMM yyyy");
 
-    return React.createElement(YellClass, { key: yell._id, username: yell.owner.username, message: yell.message, createdDate: dateString, promoted: yell.promoted });
+    return React.createElement(YellClass, { key: yell._id, username: yell.owner.username, message: yell.message, createdDate: dateString, promoted: yell.promoted, csrf: yellFeed.props.csrf, id: yell._id });
   });
 
   // show it
@@ -558,6 +560,11 @@ var renderYell = function renderYell() {
   return React.createElement(
     "div",
     { className: this.props.promoted ? "promotedYell" : "yell" },
+    React.createElement(
+      "button",
+      { className: "yellDelete", onClick: this.deleteYell },
+      "X"
+    ),
     React.createElement(
       "p",
       { className: "yellName", onClick: function onClick() {
@@ -597,6 +604,9 @@ var YellClass = React.createClass({
     message: React.PropTypes.string.isRequired,
     createdDate: React.PropTypes.string.isRequired,
     promoted: React.PropTypes.bool.isRequired
+  },
+  deleteYell: function deleteYell() {
+    sendAjax('POST', "/deleteYells", "ids=" + this.props.id + "&_csrf=" + this.props.csrf);
   }
 });
 
@@ -717,6 +727,7 @@ var SwitchClass = React.createClass({
   }
 });
 
+// neat date formater
 // http://stackoverflow.com/questions/14638018/current-time-formatting-with-javascript
 
 Date.prototype.format = function (format, utc) {

@@ -59,12 +59,14 @@ const renderYellFeed = function() {
     );
   }
   
+  const yellFeed = this;
+  
   // populate the yell list
   const yellNodes = this.state.data.map(function(yell) {
     const dateString = new Date(yell.createdDate).format("dddd h:mmtt, d MMM yyyy");
     
     return (
-      <YellClass key={yell._id} username={yell.owner.username} message={yell.message} createdDate={dateString} promoted={yell.promoted} />
+      <YellClass key={yell._id} username={yell.owner.username} message={yell.message} createdDate={dateString} promoted={yell.promoted} csrf={yellFeed.props.csrf} id={yell._id}/>
     );
   });
   
@@ -80,6 +82,7 @@ const renderYellFeed = function() {
 const renderYell = function() {
   return (
     <div className={this.props.promoted ? "promotedYell" : "yell"}>
+      <button className="yellDelete" onClick={this.deleteYell}>X</button>
       <p className="yellName" onClick={() => pageRenderer.handlePageChange("/" + this.props.username)}>@{this.props.username}</p>
       <p className="yellMessage">{this.props.message}</p>
       <p className="yellDate">{this.props.createdDate}</p>
@@ -103,6 +106,9 @@ const YellClass = React.createClass({
     message: React.PropTypes.string.isRequired,
     createdDate: React.PropTypes.string.isRequired,
     promoted: React.PropTypes.bool.isRequired,
+  },
+  deleteYell: function() {
+    sendAjax('POST', "/deleteYells", `ids=${this.props.id}&_csrf=${this.props.csrf}`);
   },
 });
 

@@ -1,21 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans');
 
-$back-color: whitesmoke;
-$item-color: white;
-$border-color: lightgray;
+$back-color: whitesmoke; // main page color
+$item-color: white; // item color, for contrast
+$border-color: lightgray; // border color around items, for further contrast
 
-$nav-index: 2;
-$error-index: $nav-index + 2;
-$popup-index: $error-index + 1;
+$nav-index: 2; // neav header
+$error-index: $nav-index + 2; // error and logo
+$popup-index: $error-index + 1; // popups
 
-$pill: 9999px;
+$pill: 9999px; // pill shaped radius value
 
+// handy for lists of items
 @mixin items() {
   background: $item-color;
   border: 2px solid $border-color;
   border-radius: 5px;
 }
 
+// override the button CSS for variable sizes and colors
 @mixin customButton($size, $hover-color: #EEEEEE) {
   font-size: $size * 2.4 + pt;
   padding: $size + px;
@@ -27,6 +29,7 @@ $pill: 9999px;
   }
 }
 
+// all GUIbuttons, buttons, and submits get rendered as neat buttons
 .GUIbutton, input[type=submit], button {
   font-size: 9.6pt;
   padding: 4px;
@@ -47,7 +50,8 @@ $pill: 9999px;
     background-image: linear-gradient(to bottom, #EEEEEE, mix(#EEEEEE, #C7C7C7));
   }
 }
-  
+
+// all checkbox switches  
 .GUIswitch {
   position: relative;
   display: inline-block;

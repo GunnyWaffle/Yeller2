@@ -9,6 +9,7 @@ html {
   background: $back-color;
 }
 
+// header of the site
 nav {
   position: fixed;
   height: 110px;
@@ -61,6 +62,7 @@ nav {
   border-radius: $pill;
   overflow: hidden;
   
+  // the actual error
   p {
     position: relative;
     display: inline-block;
@@ -74,15 +76,16 @@ nav {
   }
 }
 
+// error animation
 @keyframes errorBlinker {
   from {color: black;}
   to {color: red;}
 }
 
+// the three buttons at the top right
 #account {
   right: 15px;
   padding-left: 0px;
-  background: #0099FF;
   list-style: none;
   border-radius: 10px;
   z-index: $nav-index;
@@ -99,6 +102,7 @@ nav {
   }
 }
 
+// the login/register form in the top right
 #accountLogger {
   z-index: $nav-index;
   right: 15px;
@@ -119,6 +123,7 @@ nav {
   }
 }
 
+// the follow list in the settings
 #followList {
   max-height: 200px;
   @include items();
@@ -126,6 +131,7 @@ nav {
   overflow-y: scroll;
 }
 
+// a follow in the settings
 .follow {
   * {
     display: inline-block;
@@ -144,6 +150,7 @@ nav {
   z-index: $nav-index;
 }
 
+// the yell GUI
 #yellForm {
   z-index: $nav-index;
 
@@ -162,6 +169,7 @@ nav {
     resize: none;
   }
   
+  // promoted yell info
   + p {
     margin-top: 5px;
     position: relative;
@@ -171,6 +179,7 @@ nav {
   }
 }
 
+// the (un)follow button and username on a user page
 #userInfo {
   height: 45%;
   top: 78%;
@@ -201,10 +210,12 @@ nav {
   }
 }
 
+// the main page content
 #content {
   padding-top: 115px;
 }
 
+// the yells feed
 #yells {
   width: 400px;
   margin: auto;
@@ -217,6 +228,18 @@ nav {
 
 .promotedYell {
   background: #54A5F2;
+}
+
+.yell, .promotedYell {
+  .yellDelete {
+    display: none;
+  }
+
+  &:hover .yellDelete {
+    display: block;
+    float: right;
+    @include customButton(4, #E42131);
+  }
 }
 
 .yellName {

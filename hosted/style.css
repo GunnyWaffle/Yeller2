@@ -133,7 +133,6 @@ nav {
 #account {
   right: 15px;
   padding-left: 0px;
-  background: #0099FF;
   list-style: none;
   border-radius: 10px;
   z-index: 2; }
@@ -253,6 +252,19 @@ nav {
 
 .promotedYell {
   background: #54A5F2; }
+
+.yell .yellDelete, .promotedYell .yellDelete {
+  display: none; }
+
+.yell:hover .yellDelete, .promotedYell:hover .yellDelete {
+  display: block;
+  float: right;
+  font-size: 9.6pt;
+  padding: 4px;
+  padding-left: 12px;
+  padding-right: 12px; }
+  .yell:hover .yellDelete:hover, .promotedYell:hover .yellDelete:hover {
+    background-image: linear-gradient(to bottom, #E42131, #d6747c); }
 
 .yellName {
   display: inline-block;

@@ -56,7 +56,7 @@ const SwitchClass = React.createClass({
   }},
 });
 
-
+// neat date formater
 // http://stackoverflow.com/questions/14638018/current-time-formatting-with-javascript
 
 Date.prototype.format = function (format, utc){

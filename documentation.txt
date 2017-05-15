@@ -3,6 +3,23 @@ What your site does and what its purpose:
 - Ironically, the live updates make it double as a chat client in the global feed.
 
 
+How can this app be profitable? What profit model are you considering:
+- Just like with twitter, users can promote their yells so that they are seen on all yell feeds as advertisements.
+- Ads are the primary source of revenue. Currently they are free, as a demo, but they would cost money on a real site.
+- The idea is that they will expire based on how much you pay. Of course there is more to this than what I implemented, but that involves big data.
+
+
+How are you using React? What is it being used to show:
+- The entire website is a React hierarchy. Using a lot of React classes and components that I wrote for this site specifically.
+- The website is a single page website, utilizing the History API and react states to their fullest.
+- There are a few generic React components that I developed. Namely for popups and toggleable switches.
+- Here is my HTML body:
+<body>
+  <div id="page"></div>
+  <script src="/assets/bundle.js"></script>
+</body>
+
+
 How you used MVC and which framework you used:
 - My models describe the database contents (accounts and yells).
 - My controllers provide access to the models and return processed data, as well as the single handlebars page.
@@ -29,10 +46,13 @@ What you used Mongo for (what did you store/retrieve):
 - Yell Model:
   - message (string)
   - owner (objectID of Account)
+  - promoted (bool)
   - createdDate
+  - expirationDate (set if promoted)
 - Yell Controller:
   - getYells of a single user, or the 10 most recent yells, or all the yells of people the currently logged in person follows
   - makeYell makes a yell
+  - deleteYells deletes yell(s)
 
 
 How you used a templating language and which templating language you used:
@@ -41,20 +61,36 @@ How you used a templating language and which templating language you used:
 
 How did you go above and beyond?:
 1) single page website
-2) extensive error checking with feedback
+2) extensive error checking with feedback (50+ users at once)
 3) database populating for id referencing
 4) database array accesses for in, out, and update operations
 5) user profiles via /:username route
 6) extensive React usage
 7) spent at least 20 hours debugging extensive mongoose bugs, like actual bugs in mongoose
 8) probably broke a record with pestering Cody
+9) full mobile support on iOS and android
+10) achieved a "fun" status (I was often asked to not take this down, but I had to)
+11) developed generic React GUI components, used in multiple places
+12) developed generic and assisting code in Sass for CSS
+13) used Sass extensively to create a more organized and readable CSS file
+14) 
 
 
 Notes for grader:
 1) Cody gave me permission to count the password change popup as an additional view, since it contains a second item and is a popup.
 2) Cody gave me permission to not use handlebars templating. I call res.render('/app') only.
+3) My page views are listed as such:
+  1- home page global
+  2- home page follows (when logged in)
+  3- follows settings + pass change (when logged in and opened)
+  4- user page (navigated to)
+  5- yell form (when logged in and opened)
+  6- the navbar changes a lot based on if you are logged in or not (this mixes in to the other views)
+4) I have only one renderDOM call, the rest is hierarchy and propogation, I tried to develop this page as a fluid experience, with as few unique pages as possible. This makes identifying "views" hard in my case. It is also a lot like twitter, which focues on a unified view as well.
+5) There is a rare chance for a bug, in which document population in mongoose will fail and return garbage data or NULL. I could not trace this down, and it was proven to not be caused by my own code because it happens at random intervals with unchanging code. If this occurs the database will corrupt itself with any relational data and will require a purge, crashing the server in the process.
 
 
 credits:
 favicon/logo: http://mrpajamasharkman.deviantart.com/art/Exclaiming-Exclamation-Point-83915018
 fancy CSS switch: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch
+neat date formater: http://stackoverflow.com/questions/14638018/current-time-formatting-with-javascript
