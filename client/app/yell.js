@@ -51,7 +51,7 @@ const renderYellBox = function() {
 const renderYellFeed = function() {
   // fake a yell if there are none
   if(this.state.data.length === 0) {
-    const dateString = new Date(Date.now()).format("dddd h:mmtt, d MMM yyyy");
+    const dateString = new Date().format("dddd h:mmtt, d MMM yyyy");
     return (
       <div id="yells">
         <YellClass username={"YellBot"} message="NO YELLS YET, FIX THAT!!!" createdDate={dateString} />
