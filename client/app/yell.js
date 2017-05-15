@@ -11,8 +11,7 @@ const handleYell = function(e) {
   // POST to server without func
   sendAjax('POST', $("#yellForm").attr("action"), $("#yellForm").serialize());
   
-  // empty the textArea
-  this.setState({yell: ''});
+  this.props.unMount();
   
   return false;
 };
@@ -25,16 +24,26 @@ const updateYell = function(e) {
 // show the yell box
 const renderYellBox = function() {
   return (
-    <form id="yellForm"
-          onSubmit={this.handleSubmit}
-          action="/yell"
-          method="POST"
-          className="yellForm"
-    >
-      <textarea value={this.state.yell} name="message" placeholder="YELL HERE!!!" onChange={this.updateYell}></textarea>
-      <input type="hidden" name="_csrf" value={this.props.csrf}/>
-      <input type="submit" value={"YELL!!! - " + (140 - this.state.yell.length) + " characters left"}/>
-    </form>
+    <div>
+      <form id="yellForm"
+            onSubmit={this.handleSubmit}
+            action="/yell"
+            method="POST"
+            className="yellForm"
+      >
+        <textarea value={this.state.yell} name="message" placeholder="YELL HERE!!!" onChange={this.updateYell} ref="yellMessage"></textarea>
+        <input type="hidden" name="_csrf" value={this.props.csrf}/>
+        <SwitchClass formName="promoted" checked={this.state.promoteInfo} handleClick={this.togglePromote} on="Promote" off="Normal" />
+        <input type="submit" value={"YELL!!! - " + (140 - this.state.yell.length) + " characters left"}/>
+      </form>
+      {this.state.promoteInfo ?
+        <p>
+          Promoted Yells are advertised across all yell feeds. Each promoted Yell will only last for 1 minute before being automatically deleted. These Yells will be placed every 3 yells in the yell feed.
+        </p>
+        :
+        null
+      }
+    </div>
   );
 };
 
@@ -52,10 +61,10 @@ const renderYellFeed = function() {
   
   // populate the yell list
   const yellNodes = this.state.data.map(function(yell) {
-    const date = new Date(yell.createdDate);
+    const dateString = new Date(yell.createdDate).format("dddd h:mmtt, d MMM yyyy");
     
     return (
-      <YellClass key={yell._id} username={yell.owner.username} message={yell.message} createdDate={date.toString()} />
+      <YellClass key={yell._id} username={yell.owner.username} message={yell.message} createdDate={dateString} promoted={yell.promoted} />
     );
   });
   
@@ -70,7 +79,7 @@ const renderYellFeed = function() {
 // show a yell
 const renderYell = function() {
   return (
-    <div className="yell">
+    <div className={this.props.promoted ? "promotedYell" : "yell"}>
       <p className="yellName" onClick={() => pageRenderer.handlePageChange("/" + this.props.username)}>@{this.props.username}</p>
       <p className="yellMessage">{this.props.message}</p>
       <p className="yellDate">{this.props.createdDate}</p>
@@ -86,12 +95,14 @@ const YellClass = React.createClass({
       username: '',
       message: '',
       createdDate: '',
+      promoted: false,
     });
   },
   propTypes: {
     username: React.PropTypes.string.isRequired,
     message: React.PropTypes.string.isRequired,
     createdDate: React.PropTypes.string.isRequired,
+    promoted: React.PropTypes.bool.isRequired,
   },
 });
 
@@ -99,8 +110,14 @@ const YellClass = React.createClass({
 const YellFormClass = React.createClass({
   handleSubmit: handleYell,
   render: renderYellBox,
-  getInitialState: () => { return {yell: ''}; },
+  getInitialState: () => { return {yell: '', promoteInfo: false}; },
   updateYell: updateYell,
+  togglePromote: function() {
+    this.setState({promoteInfo: !this.state.promoteInfo});
+  },
+  componentDidMount: function() {
+    this.refs.yellMessage.focus();
+  },
 });
 
 // the yell feed class  

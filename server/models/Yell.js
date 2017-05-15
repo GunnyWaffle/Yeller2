@@ -18,9 +18,17 @@ const YellSchema = new mongoose.Schema({
     required: true,
     ref: 'Account',
   },
+  promoted: {
+    type: Boolean,
+    default: false,
+  },
   createdDate: {
     type: Date,
     default: Date.now,
+  },
+  expirationDate: {
+    type: Date,
+    expires: 0
   },
 });
 
@@ -28,15 +36,19 @@ YellSchema.statics.toAPI = (docs) => docs.map((doc) => ({
   _id: doc._id,
   message: decodeURIComponent(doc.message),
   createdDate: doc.createdDate,
+  promoted: doc.promoted,
   owner: {
     username: doc.owner.username,
   },
 }));
 
 // globally applied query filtering and population
-const filterYells = (search) => {
-  const firstPass = YellModel.find(search).populate('owner', 'username');
-  return firstPass.select('owner message createdDate').sort({ createdDate: -1 });
+const filterYells = (search, promoted) => {
+  promoted = typeof promoted === 'undefined' ? false : promoted;
+  
+  const firstPass = YellModel.find(search).where('promoted');
+  const secondPass = firstPass.equals(promoted).populate('owner', 'username');
+  return secondPass.select('owner message createdDate promoted').sort({ createdDate: -1 });
 };
 
 // most recent yells, with a count limit
@@ -52,6 +64,10 @@ YellSchema.statics.findByOwner = (ownerIds, callback) => {
   };
 
   return filterYells(search).exec(callback);
+};
+
+YellSchema.statics.findPromoted = (callback) => {
+  return filterYells({}, true).exec(callback);
 };
 
 YellModel = mongoose.model('Yell', YellSchema);

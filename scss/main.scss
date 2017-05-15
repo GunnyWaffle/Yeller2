@@ -2,6 +2,7 @@
 
 * {
   margin: 0;
+  font-family: 'Merriweather Sans', sans-serif;
 }
 
 html {
@@ -12,7 +13,7 @@ nav {
   position: fixed;
   height: 110px;
   width: 100%;
-  background: #FF9900;
+  background-image: linear-gradient(to bottom, #FFCC66, #FF9900);
   z-index: $nav-index;
   
   > * {
@@ -146,11 +147,12 @@ nav {
 #yellForm {
   z-index: $nav-index;
 
-  * {
+  &>* {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     display: block;
+    margin-top: 5px;
   }
   
   textArea {
@@ -159,6 +161,14 @@ nav {
     overflow: hidden;
     resize: none;
   }
+  
+  + p {
+    margin-top: 5px;
+    position: relative;
+    display: block;
+    width: 300px;
+    @include items();
+  }
 }
 
 #userInfo {
@@ -166,7 +176,7 @@ nav {
   top: 78%;
   left: 125px;
   border-radius: 20px 20px 0px 0px;
-  background: $item-color;
+  background-image: linear-gradient(to top, $back-color, $item-color);
   z-index: $nav-index;
   
   * {
@@ -201,8 +211,12 @@ nav {
   @include items();
 }
 
-.yell:not(:last-child) {
+.yell:not(:last-child), .promotedYell:not(:last-child) {
   border-bottom: 2px solid $border-color;
+}
+
+.promotedYell {
+  background: #54A5F2;
 }
 
 .yellName {
@@ -223,6 +237,7 @@ nav {
 .yellMessage {
   margin-left: 27px;
   margin-right: 20px;
+  margin-top: 3px;
   word-wrap: break-word;
 }
 

@@ -46,7 +46,7 @@ const renderPage = function() {
       </div>
       {this.state.yell ?
         <PopupClass unMount={()=>{this.closePopup("yell");}}>
-          <YellFormClass csrf={this.state.csrf} />
+          <YellFormClass csrf={this.state.csrf} unMount={()=>{this.closePopup("yell");}} />
         </PopupClass>
         :
         null

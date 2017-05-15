@@ -8,13 +8,18 @@ const makeYell = (req, res) => {
   if (!req.body.message) {
     return res.status(400).json({ error: "You can't yell nothing!" });
   }
-
+  
   // trim the incoming message
   const yellData = {
     message: req.body.message.substring(0, 140),
     owner: req.session.account._id,
   };
-
+  
+  if (req.body.promoted) {
+    yellData.expirationDate = new Date(Date.now() + 60 * 1000);
+    yellData.promoted = true;
+  }
+  
   // make the yell
   const newYell = new Yell.YellModel(yellData);
 
@@ -33,6 +38,27 @@ const makeYell = (req, res) => {
   });
 
   return yellPromise;
+};
+
+const injectPromotionals = (request, response, yells) => {
+  return Yell.YellModel.findPromoted((err, docs) => {
+    if (err) {
+      return res.status(500).json({ error: 'An error occurred' });
+    }
+    
+    const promotedYells = Yell.YellModel.toAPI(docs);
+    let promoteCounter = 0;
+    
+    yells = yells.reduce((yells, val, index) => {
+      if (index % 3 === 2 && promoteCounter < promotedYells.length) {
+        return yells.concat(val, promotedYells[promoteCounter++]);
+      }
+      
+      return yells.concat(val, []);
+    }, []);
+    
+    return response.status(200).json({ yells });
+  });
 };
 
 // get yells
@@ -64,7 +90,7 @@ const getYells = (request, response) => {
         }
 
         // process yells for the client
-        return res.status(200).json({ yells: Yell.YellModel.toAPI(docs) });
+        return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
       });
     });
   }
@@ -78,15 +104,15 @@ const getYells = (request, response) => {
     global = req.session.account ? global : true;
   }
 
-  // if global, get the 10 most recent yells
+  // if global, get the 12 most recent yells
   if (global) {
-    return Yell.YellModel.findGlobal(10, (err, docs) => {
+    return Yell.YellModel.findGlobal(12, (err, docs) => {
       if (err) {
         return res.status(500).json({ error: 'An error occurred' });
       }
 
       // process yells for the client
-      return res.status(200).json({ yells: Yell.YellModel.toAPI(docs) });
+      return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
     });
   }
   
@@ -103,7 +129,7 @@ const getYells = (request, response) => {
       }
 
       // process yells for the client
-      return res.status(200).json({ yells: Yell.YellModel.toAPI(docs) });
+      return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
     });
   });
 };
