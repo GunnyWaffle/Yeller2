@@ -8,18 +8,18 @@ const makeYell = (req, res) => {
   if (!req.body.message) {
     return res.status(400).json({ error: "You can't yell nothing!" });
   }
-  
+
   // trim the incoming message
   const yellData = {
     message: req.body.message.substring(0, 140),
     owner: req.session.account._id,
   };
-  
+
   if (req.body.promoted) {
     yellData.expirationDate = new Date(Date.now() + 60 * 1000);
     yellData.promoted = true;
   }
-  
+
   // make the yell
   const newYell = new Yell.YellModel(yellData);
 
@@ -41,23 +41,23 @@ const makeYell = (req, res) => {
 };
 
 const injectPromotionals = (request, response, yells) => {
-  return Yell.YellModel.findPromoted((err, docs) => {
+  Yell.YellModel.findPromoted((err, docs) => {
     if (err) {
-      return res.status(500).json({ error: 'An error occurred' });
+      return response.status(500).json({ error: 'An error occurred' });
     }
-    
+
     const promotedYells = Yell.YellModel.toAPI(docs);
     let promoteCounter = 0;
-    
-    yells = yells.reduce((yells, val, index) => {
+
+    const yellFeed = yells.reduce((arr, val, index) => {
       if (index % 3 === 2 && promoteCounter < promotedYells.length) {
-        return yells.concat(val, promotedYells[promoteCounter++]);
+        return arr.concat(val, promotedYells[promoteCounter++]);
       }
-      
-      return yells.concat(val, []);
+
+      return arr.concat(val, []);
     }, []);
-    
-    return response.status(200).json({ yells });
+
+    return response.status(200).json({ yellFeed });
   });
 };
 
@@ -115,7 +115,7 @@ const getYells = (request, response) => {
       return injectPromotionals(req, res, Yell.YellModel.toAPI(docs));
     });
   }
-  
+
   // feed from yellers that the currently logged in user follows
   return models.Account.AccountModel.findByUsername(
   req.session.account.username, (accountErr, doc) => {
